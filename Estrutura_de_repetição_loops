@@ -1,0 +1,67 @@
+# 💼 Situação-Problema: Desenvolvimento de um Programa de Registro Dinâmico de Pesagem na Produção
+# •A equipe de desenvolvimento de sistemas de uma fábrica que adota tecnologias de manufatura inteligente
+# recebeu a tarefa de criar um programa para registrar os pesos das peças produzidas em tempo real, durante o
+# turno de produção.
+# •Esse sistema será utilizado por operadores que precisam inserir, manualmente, os pesos das peças conforme
+# são produzidas. A ideia é testar e validar a coleta de dados antes da integração com sensores automáticos.
+# O programa deve funcionar da seguinte forma:
+# •Perguntar ao operador se deseja registrar uma peça.
+# •Se a resposta for "sim", solicitar o peso da peça (em kg).
+# •Verificar se o peso está dentro do padrão de qualidade aceitável (entre 9 e 11 kg).
+# •Informar imediatamente se a peça foi aprovada ou reprovada com base nesse critério.
+# •Repetir esse processo até que o operador opte por encerrar o registro.
+# Ao final, o sistema deve:
+# •Exibir o número total de peças registradas;
+# •Calcular e exibir o peso total do lote e a média de peso por peça;
+# •Mostrar quantas peças foram aprovadas e reprovadas;
+# •Exibir os tipos das variáveis utilizadas no programa.
+# 🛠 Importante: Esse programa faz parte de um teste de conceito (PoC) para futura automação industrial. O foco
+# está em garantir o correto funcionamento da lógica condicional e da coleta repetitiva de dados via terminal.
+
+# Entrada de dados e inicialização das variáveis
+total_pecas = 0
+peso_total = 0.0
+pecas_aprovadas = 0
+pecas_reprovadas = 0
+lista_pesos = []
+
+registrar_peca = input("Deseja registrar uma peça? (sim/não): ")
+
+while registrar_peca == "sim":
+    peso_peca = float(input("Digite o peso da peça (em kg): "))
+    
+    # Armazenar o peso na lista
+    lista_pesos.append(peso_peca)
+    
+    # Contadores e acumuladores
+    total_pecas += 1
+    peso_total += peso_peca
+    
+    # Verificar se a peça está dentro do padrão (entre 9 e 11 kg)
+    if peso_peca >= 9 and peso_peca <= 11:
+        print("Peça aprovada.")
+        pecas_aprovadas += 1
+    else:
+        print("Peça reprovada.")
+        pecas_reprovadas += 1
+    
+    registrar_peca = input("Deseja registrar outra peça? (sim/não): ")
+
+# Exibir relatório final
+if total_pecas > 0:
+    media_peso = peso_total / total_pecas
+    
+    print("\n=== RELATÓRIO FINAL ===")
+    print(f"Total de peças registradas: {total_pecas}")
+    print(f"Peso total do lote: {peso_total:.2f} kg")
+    print(f"Média de peso por peça: {media_peso:.2f} kg")
+    print(f"Peças aprovadas: {pecas_aprovadas}")
+    print(f"Peças reprovadas: {pecas_reprovadas}")
+    
+    print("\n=== TIPOS DAS VARIÁVEIS ===")
+    print(f"Tipo da variável total_pecas: {type(total_pecas)}")
+    print(f"Tipo da variável peso_total: {type(peso_total)}")
+    print(f"Tipo da variável media_peso: {type(media_peso)}")
+    print(f"Tipo da variável lista_pesos: {type(lista_pesos)}")
+else:
+    print("Nenhuma peça foi registrada.")
